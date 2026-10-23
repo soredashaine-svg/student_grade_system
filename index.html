@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Grade Management System | Marc Jayr Bermudez</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Student Grade Management System</h1>
+    <p>Class record · Final Grade = Prelim 30% + Midterm 30% + Finals 40%</p>
+  </header>
+
+  <main class="container">
+    <!-- ============ SUMMARY CARDS ============ -->
+    <section class="stats">
+      <div class="stat"><span class="stat-label">Students</span><span id="statCount" class="stat-value">0</span></div>
+      <div class="stat"><span class="stat-label">Class Average</span><span id="statAverage" class="stat-value">–</span></div>
+      <div class="stat"><span class="stat-label">Highest</span><span id="statHighest" class="stat-value">–</span></div>
+      <div class="stat"><span class="stat-label">Passed / Failed</span><span id="statPassFail" class="stat-value">0 / 0</span></div>
+    </section>
+
+    <div class="layout">
+      <!-- ============ ADD / EDIT FORM ============ -->
+      <section class="panel">
+        <h2 id="formTitle">Add Student</h2>
+        <form id="studentForm" novalidate>
+          <label>Student No.
+            <input name="studentNo" type="text" placeholder="e.g. 2024-00123" maxlength="20">
+          </label>
+          <label>Full Name
+            <input name="name" type="text" placeholder="e.g. Juan Dela Cruz" maxlength="60">
+          </label>
+          <div class="grade-inputs">
+            <label>Prelim
+              <input name="prelim" type="number" min="0" max="100" step="0.01">
+            </label>
+            <label>Midterm
+              <input name="midterm" type="number" min="0" max="100" step="0.01">
+            </label>
+            <label>Finals
+              <input name="finals" type="number" min="0" max="100" step="0.01">
+            </label>
+          </div>
+          <p id="formError" class="error" role="alert"></p>
+          <div class="form-buttons">
+            <button type="submit" id="saveButton" class="primary">Add Student</button>
+            <button type="button" id="cancelEdit" class="secondary" hidden>Cancel</button>
+          </div>
+        </form>
+
+        <details class="scale">
+          <summary>Grading scale</summary>
+          <table>
+            <thead><tr><th>Score</th><th>Grade</th></tr></thead>
+            <tbody id="scaleTable"></tbody>
+          </table>
+        </details>
+      </section>
+
+      <!-- ============ STUDENT TABLE ============ -->
+      <section class="panel">
+        <div class="table-tools">
+          <input id="searchInput" type="search" placeholder="Search by name or student no." aria-label="Search students">
+          <select id="remarkFilter" aria-label="Filter by remarks">
+            <option value="all">All</option>
+            <option value="Passed">Passed</option>
+            <option value="Failed">Failed</option>
+          </select>
+          <select id="sortSelect" aria-label="Sort students">
+            <option value="name">Sort: Name</option>
+            <option value="grade-desc">Sort: Highest grade</option>
+            <option value="grade-asc">Sort: Lowest grade</option>
+          </select>
+          <button id="exportCsv" class="secondary">Export CSV</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="students">
+            <thead>
+              <tr>
+                <th>Student No.</th>
+                <th>Name</th>
+                <th>Prelim</th>
+                <th>Midterm</th>
+                <th>Finals</th>
+                <th>Final %</th>
+                <th>Grade</th>
+                <th>Remarks</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="studentRows"></tbody>
+          </table>
+        </div>
+        <p id="emptyMessage" class="empty">No students yet. Add one using the form.</p>
+        <button id="loadSample" class="link">Load sample students</button>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">Made by Marc Jayr Bermudez · Records are saved in your browser</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
